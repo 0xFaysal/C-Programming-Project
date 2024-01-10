@@ -42,7 +42,12 @@ int main(){
         print_arr(box);
         printf("Enter the number of the box you want to change: ");
         int num;
+        fflush(stdin);
         scanf("%d",&num);
+        if(num>9 || num<1){
+            printf("Invalid input\n");
+            continue;
+        }
         box_cng(num,box,'x');
         a--;
     }

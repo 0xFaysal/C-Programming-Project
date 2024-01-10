@@ -1,6 +1,13 @@
 //write code for make a game tik-tak-to
 #include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
 
+
+
+//player name
+char player1[20];
+char player2[20];
 //box for tik-tak-to
 char box[3][3] = {{'1', '2', '3'},
                   {'4', '5', '6'},
@@ -34,6 +41,7 @@ void box_cng(int num, char arr[3][3], char ch) {
         arr[2][2] = ch;
     } else {
         printf("Invalid input\n");
+
     }
 }
 
@@ -138,17 +146,33 @@ void print_box() {
 
 }
 
-
-int main() {
+void title(char name1[20],char name2[20]) {
+    system("cls");
+    printf("--------------------------------------------\n");
+    printf("\t   T i k - T a k - T o e\n");
+    printf("\t\t%s is O\n",name1);
+    printf("\t\t%s is X\n",name2);
+    printf("--------------------------------------------");
+    printf("\n");
+}
+void game(){
     int a = 9;
     int input;
 
     while (a > 0) {
+        title(player1,player2);
         print_box();
-        printf("Enter your input:");
+        if (a % 2 != 0) {
+            printf("%s turn,Enter input: ", player1);
+        } else {
+            printf("%s turn,Enter input: ", player2);
+        }
+        fflush(stdin);
         scanf("%d", &input);
+        if (input > 9 || input < 1) {
+            continue;
+        }
         printf("\n");
-        //a=7
         if ((check(input))) {
             if (a % 2 == 0) {
                 box_cng(input, box, 'X');//x
@@ -159,14 +183,17 @@ int main() {
             cng_to_num(box, box_o, 'O');
             if (check_to_win(box_x) || check_to_win(box_o)) {
                 if (check_to_win(box_x)) {
+                    title(player1,player2);
                     print_box();
-                    printf("X win\n");
+                    printf("%s  WIN the Match\n", player2);
                     break;
                 } else if (check_to_win(box_o)) {
+                    title(player1,player2);
                     print_box();
-                    printf("O win\n");
+                    printf("%s  WIN the Match\n", player1);
                     break;
                 } else {
+                    title(player1,player2);
                     print_box();
                     printf("No one win\n");
                 }
@@ -177,6 +204,15 @@ int main() {
         }
     }
 
+}
 
+int main() {
+    printf("Enter player1 name:");
+    scanf("%s", player1);
+    printf("Enter player2 name:");
+    scanf("%s", player2);
+    title(player1,player2);
+    game();
+    getch();
     return 0;
 }
